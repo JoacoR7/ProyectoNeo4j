@@ -21,19 +21,24 @@ DELETE n
 CREATE (n1:Etiqueta1)-[r:Relación]->(n2:Etiqueta2)
 
 MATCH (a), (b)
-WHERE a.nombre = "Ana" AND b.nombre = "Juan"
+WHERE ID(a) = AND ID(b) =
 CREATE (a)-[r:Amigo]->(b)
 
 - Cambiar los atributos de un nodo
-MATCH (a:Persona {nombre: "Ana"})
+MATCH (a)
+WHERE ID(a) =
 SET a.edad = 30
 
 - Borrar relacion
-MATCH (n1:Tipo1)-[r:Relacion]-(n2:Tipo2)
+MATCH (n1)-[r]-(n2)
 WHERE ID(n1) = id1 AND ID(n2) = id2
 DELETE r
 
 - Filtrar nodos que no tienen cierta relación
 MATCH (l:LugarTuristico)
 WHERE NOT (:Actividad)<-[:Atracción]-(l)
-RETURN l
+RETURN l.nombre order by l.nombre
+
+- Filtrar nodos que tienen cierta relación
+MATCH (a:Actividad)-[:Atracción]->(:Ciudad {nombre: "Parque Nacional Chaco"})
+RETURN a
