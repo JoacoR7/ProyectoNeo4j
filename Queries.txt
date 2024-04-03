@@ -32,3 +32,8 @@ SET a.edad = 30
 MATCH (n1:Tipo1)-[r:Relacion]-(n2:Tipo2)
 WHERE ID(n1) = id1 AND ID(n2) = id2
 DELETE r
+
+- Filtrar nodos que no tienen cierta relación
+MATCH (l:LugarTuristico)
+WHERE NOT (:Actividad)<-[:Atracción]-(l)
+RETURN l
